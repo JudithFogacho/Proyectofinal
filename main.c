@@ -1,5 +1,4 @@
 #include <stdio.h>
-
 #define MAX_MASCOTAS 100
 
 int main() {
@@ -18,7 +17,8 @@ int main() {
         printf("1. Ingresar Mascota\n");
         printf("2. Servicios\n");
         printf("3. Facturar\n");
-        printf("4. Cerrar programa\n");
+        printf("4. Modificar mascota\n");
+        printf("5. Cerrar programa\n");
         printf("Ingrese una opcion: ");
         scanf("%d", &opcion);
 
@@ -107,6 +107,35 @@ int main() {
                     }
                 } while (otroServicio);
 
+                printf("\n----- Factura -----\n");
+                printf("ID Mascota: %d\n", idMascota);
+                printf("Nombre: %s\n", mascotas[idMascota]);
+                printf("Edad: %d\n", edades[idMascota]);
+                printf("Tipo: %s\n", mascotas[idMascota+1]);
+                printf("Dueno: %s\n", mascotas[idMascota+2]);
+                printf("Servicios realizados:\n");
+
+            
+                printf("-----------------------------------------------------\n");
+                printf("| Servicio              | Descripcion             | Precio  | ID Servicio |\n");
+                printf("-----------------------------------------------------\n");
+                if (serviciosRealizados[0]) {
+                    printf("| Peinado para Mascota  | Servicio de peinado     | $10     | 1           |\n");
+                }
+                if (serviciosRealizados[1]) {
+                    printf("| Spa para Mascota      | Servicio de spa         | $20     | 2           |\n");
+                }
+                if (serviciosRealizados[2]) {
+                    printf("| Lavado para Mascota   | Servicio de lavado      | $15     | 3           |\n");
+                }
+                if (serviciosRealizados[3]) {
+                    printf("| Desparasitante        | Servicio desparasitante | $5      | 4           |\n");
+                }
+                printf("-----------------------------------------------------\n");
+
+                facturaTotal += totalServicios;
+                printf("El total a pagar de todas las facturas es: %d\n", facturaTotal);
+                
                 char nombreArchivo[20];
                 snprintf(nombreArchivo, sizeof(nombreArchivo), "factura_%d.txt", contadorFactura);
                 archivo = fopen(nombreArchivo, "w"); 
@@ -143,14 +172,117 @@ int main() {
                 
                 break;
             case 4:
+                printf("Ha seleccionado 'Modificar Mascota'\n");
+                int opcion2;
+
+                printf("Ingrese el ID de la mascota a modificar: ");
+                scanf("%d", &idMascota);
+
+                if (idMascota < 1 || idMascota > MAX_MASCOTAS) {
+                    printf("ID de mascota inválido.\n");
+                    return 0;
+                }
+
+                printf("----- Modificar Mascota -----\n");
+                printf("1. Modificar nombre\n");
+                printf("2. Modificar tipo\n");
+                printf("3. Modificar edad\n");
+                printf("Ingrese una opción: ");
+                scanf("%d", &opcion2);
+
+                switch (opcion2) {
+                    case 1:
+                        printf("Ingrese el nuevo nombre: ");
+                        scanf("%s", mascotas[idMascota]);
+                        printf("Nombre de la mascota modificado.\n");
+                        break;
+                    case 2:
+                        printf("Ingrese el nuevo tipo: ");
+                        scanf("%s", mascotas[idMascota + 1]);
+                        printf("Tipo de la mascota modificado.\n");
+                        break;
+                    case 3:
+                        printf("Ingrese la nueva edad: ");
+                        scanf("%d", &edades[idMascota]);
+                        printf("Edad de la mascota modificada.\n");
+                        break;
+                    default:
+                        printf("Opción inválida.\n");
+                    }
+                    printf("\n----- Factura -----\n");
+                printf("ID Mascota: %d\n", idMascota);
+                printf("Nombre: %s\n", mascotas[idMascota]);
+                printf("Edad: %d\n", edades[idMascota]);
+                printf("Tipo: %s\n", mascotas[idMascota+1]);
+                printf("Dueno: %s\n", mascotas[idMascota+2]);
+                printf("Servicios realizados:\n");
+
+            
+                printf("-----------------------------------------------------\n");
+                printf("| Servicio              | Descripcion             | Precio  | ID Servicio |\n");
+                printf("-----------------------------------------------------\n");
+                if (serviciosRealizados[0]) {
+                    printf("| Peinado para Mascota  | Servicio de peinado     | $10     | 1           |\n");
+                }
+                if (serviciosRealizados[1]) {
+                    printf("| Spa para Mascota      | Servicio de spa         | $20     | 2           |\n");
+                }
+                if (serviciosRealizados[2]) {
+                    printf("| Lavado para Mascota   | Servicio de lavado      | $15     | 3           |\n");
+                }
+                if (serviciosRealizados[3]) {
+                    printf("| Desparasitante        | Servicio desparasitante | $5      | 4           |\n");
+                }
+                printf("-----------------------------------------------------\n");
+
+                facturaTotal += totalServicios;
+                printf("El total a pagar de todas las facturas es: %d\n", facturaTotal);
+                
+                
+                snprintf(nombreArchivo, sizeof(nombreArchivo), "factura_%d.txt", contadorFactura);
+                archivo = fopen(nombreArchivo, "w"); 
+
+                fprintf(archivo, "\n----- Factura -----\n");
+                fprintf(archivo, "ID Mascota: %d\n", idMascota);
+                fprintf(archivo, "Nombre: %s\n", mascotas[idMascota]);
+                fprintf(archivo, "Edad: %d\n", edades[idMascota]);
+                fprintf(archivo, "Tipo: %s\n", mascotas[idMascota+1]);
+                fprintf(archivo, "Dueno: %s\n", mascotas[idMascota+2]);
+                fprintf(archivo, "Servicios realizados:\n");
+
+                fprintf(archivo, "-----------------------------------------------------\n");
+                fprintf(archivo, "| Servicio              | Descripcion             | Precio  | ID Servicio |\n");
+                fprintf(archivo, "-----------------------------------------------------\n");
+                if (serviciosRealizados[0]) {
+                    fprintf(archivo, "| Peinado para Mascota  | Servicio de peinado     | $10     | 1           |\n");
+                }
+                if (serviciosRealizados[1]) {
+                    fprintf(archivo, "| Spa para Mascota      | Servicio de spa         | $20     | 2           |\n");
+                }
+                if (serviciosRealizados[2]) {
+                    fprintf(archivo, "| Lavado para Mascota   | Servicio de lavado      | $15     | 3           |\n");
+                }
+                if (serviciosRealizados[3]) {
+                    fprintf(archivo, "| Desparasitante        | Servicio desparasitante | $5      | 4           |\n");
+                }
+                fprintf(archivo, "-----------------------------------------------------\n");
+                facturaTotal += totalServicios;
+                fprintf(archivo, "El total a pagar de todas las facturas es: %d\n", facturaTotal);
+
+                fclose(archivo);
+                contadorFactura++;
+                continue;
+                break;
+            case 5:
                 printf("Cerrando programa...\n");
                 break;
             default:
                 printf("Opcion invalida. Por favor, seleccione una opcion valida.\n");
         }
-
+        
         printf("\n");
     } while (opcion != 4);
 
-    return 0;
+return 0;
 }
+
